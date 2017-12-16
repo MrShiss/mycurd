@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="./base.css">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a style="color: white;font-family: 华文隶书;font-size: 3rem" class="navbar-brand" href="#">我的增删改查</a>
+        </div>
+        <p style="padding: 1rem 10rem">
+            <a style="color: white;font-family: 华文隶书;font-size: 2.5rem" class="pull-right" href="/">回到首页</a>
+        </p>
+</nav>
+<main>
+    <% if(success){%>
+    <div><%= success %></div>
+    <%}%>
+    <% if(error){%>
+    <div><%= error %></div>
+    <%}%>
+</main>

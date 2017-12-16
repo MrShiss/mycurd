@@ -1,0 +1,28 @@
+body{
+    background-image: url("body.jpg");
+}
+nav{
+    background-color: #A48DC5!important;
+}
+th{
+    text-align: center;
+}
+.paddtop{
+    padding-top: 1.5rem!important;
+}
+td a{
+    color: #F0F8FF;
+}
+.reg-model{
+    background-image: url("reg.jpg");
+}
+.reg-model01{
+    background-image: url("reg01.jpg");
+}
+label{
+    color: #d4d4d4;
+}
+button{
+    border: none;
+    background-color: initial;
+}

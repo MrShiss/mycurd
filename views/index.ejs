@@ -1,0 +1,163 @@
+<% include header %>
+<div class="container">
+    <button type="button" class="btn btn-danger pull-right deleteMore">
+        <a style="color: white" href="#">批量删除</a>
+    </button>
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal-search">点击查询</button>
+    <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">点击注册</button>
+</div>
+<div class="container" style="color: linen">
+    <table class="table table-bordered text-center">
+        <caption style="color: #d9edf7;font-size: 3rem;font-family: 楷体">人员展示区域</caption>
+        <thead>
+        <tr style="font-size: 1.5rem">
+            <th>帐&#x3000;号</th>
+            <th>姓&#x3000;名</th>
+            <th>年&#x3000;龄</th>
+            <th>性&#x3000;别</th>
+            <th>电&#x3000;话</th>
+            <th>邮&#x3000;箱</th>
+            <th>注&nbsp;册&nbsp;时&nbsp;间</th>
+            <th>操&#x3000;作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% docs.forEach(function(doc){%>
+        <tr>
+            <td class="paddtop"><%= doc.account %></td>
+            <td class="paddtop"><%= doc.username %></td>
+            <td class="paddtop"><%= doc.age %></td>
+            <td class="paddtop"><%= doc.gender %></td>
+            <td class="paddtop"><%= doc.phone %></td>
+            <td class="paddtop"><%= doc.email %></td>
+            <td class="paddtop"><%= doc.createTime.toLocaleString() %></td>
+            <td>
+                    <a class="update" href="/update/<%= doc.account %>"><i class="fa fa-edit">修改</i></a>
+                    <a class="delete" href="/delete/<%= doc.account %>"><i class="fa fa-trash">删除</i></a>
+            </td>
+        </tr>
+        <% })%>
+        </tbody>
+    </table>
+</div>
+<div class="container" style="text-align: center;font-size: 2rem">
+    <% if(!isFirstPage){%>
+    <span class="prepage">
+        <a style="color: #d9edf7;font-family: 楷体" href="?page=<%= page - 1 %>">上一页</a>
+    </span>
+    <% }%>
+    <span style="color: #d9edf7;font-size: 1.5rem"><%= page %></span>
+    <% if(!isLastPage){%>
+    <span class="nextpage">
+        <a style="color: #d9edf7;font-family: 楷体" href="?page=<%= page + 1%>">下一页</a>
+    </span>
+    <% }%>
+</div>
+<!--注册模态框-->
+<div class="modal fade reg-model" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content reg-model01">
+            <div class="modal-header">
+                <button style="color: #d9edf7;font-size: 3rem" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 style="color: #d9edf7" class="modal-title" id="myModalLabel">
+                    请输入注册信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-2 control-label">帐号</label>
+                        <div class="col-sm-10">
+                            <input type="text" required class="form-control reg-input" pattern="^[0-9]{6,10}$"
+                                   onkeyup="value=value.replace(/[^\w\/]/ig,'')" name="account" placeholder="请输入帐号">
+                            <span class="reg-span" style="color: darkred;display: none">只能输入6-10数字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">昵称</label>
+                        <div class="col-sm-10">
+                            <input type="text" required
+                                   onkeyup="value=value.replace(/[^\u4e00-\u9fa5a-zA-Z]/g,'')"
+                                   minlength="2" maxlength="8" class="form-control reg-input" name="username" placeholder="请输入昵称">
+                            <span class="reg-span" style="color: darkred;display: none">只能输入2-8中文或字母</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text"
+                                   maxlength="2" required
+                                   onkeyup="value=value.replace(/[^0-9]/g,'')" class="form-control reg-input" name="age" placeholder="请输入年龄">
+                            <span class="reg-span" style="color: darkred;display: none">只能输入0-2数字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <div class="container" style="padding-top: 5px">
+                                <input required value="true" type="radio" name="gender">男
+                                <input required value="false" type="radio" name="gender">女
+                            </div>
+                            <span style="display: none"></span>
+                            <span style="display: none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input  maxlength="11" required
+                                    pattern="^1[3|4|5|8][0-9]\d{4,8}$"
+                                    type="text" class="form-control reg-input" name="phone" placeholder="请输入电话">
+                            <span class="reg-span" style="color: darkred;display: none">请输入正确的手机号</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+                            <input  required
+                                    pattern="^[a-zA_Z0-9_-]+@[a-zA_Z0-9_-]+(\.[a-zA_Z0-9_-]+)+$"
+                                    type="text" class="form-control reg-input" name="email" placeholder="请输入邮箱">
+                            <span class="reg-span" style="color: darkred;display: none">请输入正确的邮箱地址</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary submit">
+                            注&#x3000;&#x3000;册
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改模态框 -->
+<div class="modal fade" id="myModal-search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #765C9B">
+            <div class="modal-header">
+                <button style="color: #d9edf7;font-size: 3rem" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel" style="color: #d9edf7">搜索界面</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="get" action="/search">
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-2 control-label">帐号</label>
+                        <div class="col-sm-10">
+                            <input
+                                    type="text" required class="form-control account" pattern="^.{6,10}$"
+                                    onkeyup="value=value.replace(/[^\w\/]/ig,'')" name="keyword" placeholder="请输入6位以上帐号">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" data-dismiss="modal">取消搜索</button>
+                        <button type="submit" class="btn btn-primary">确定搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include footer %>
